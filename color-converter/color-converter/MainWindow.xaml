@@ -1,0 +1,17 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:WpfApp1"
+		mc:Ignorable="d"
+		Title="Color Transfer" Height="126" Width="268" MinWidth="268" MinHeight="126" MaxWidth="268" MaxHeight="126">
+	<Grid>
+		<TextBox x:Name="textHexadecimal" HorizontalAlignment="Left" Height="22" Margin="96,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" TextChanged="textHexadecimal_TextChanged" Initialized="textHexadecimal_Initialized"/>
+		<TextBox x:Name="textDecimal" HorizontalAlignment="Left" Height="22" Margin="96,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" TextChanged="textDecimal_TextChanged"/>
+		<Label Content="Decimal" HorizontalAlignment="Left" Margin="11,5,0,0" VerticalAlignment="Top" Width="91" Height="22"/>
+		<Label Content="Hexadecimal" HorizontalAlignment="Left" Margin="11,33,0,0" VerticalAlignment="Top" Width="91" Height="22"/>
+		<CheckBox x:Name="checkTop" Content="Top window" Margin="0,68,10,0" Checked="checkTop_Checked" Unchecked="checkTop_Unchecked" Height="15" Width="91" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+
+	</Grid>
+</Window>
