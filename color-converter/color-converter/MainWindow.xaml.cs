@@ -79,6 +79,7 @@ namespace WpfApp1 {
 
             if (!String.IsNullOrEmpty(textD))
                 textDecimal.Text = textD;
+
             textHexadecimal.Select(cursorIndex, 0);
         }
 

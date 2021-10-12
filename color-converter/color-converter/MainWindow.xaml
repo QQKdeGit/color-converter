@@ -5,7 +5,7 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:WpfApp1"
 		mc:Ignorable="d"
-		Title="Color Transfer" Height="126" Width="268" MinWidth="268" MinHeight="126" MaxWidth="268" MaxHeight="126">
+		Title="Color Converter" Height="126" Width="277" MinWidth="277" MinHeight="126" MaxWidth="277" MaxHeight="126">
 	<Grid>
 		<TextBox x:Name="textHexadecimal" HorizontalAlignment="Left" Height="22" Margin="96,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" TextChanged="textHexadecimal_TextChanged" Initialized="textHexadecimal_Initialized"/>
 		<TextBox x:Name="textDecimal" HorizontalAlignment="Left" Height="22" Margin="96,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" TextChanged="textDecimal_TextChanged"/>
