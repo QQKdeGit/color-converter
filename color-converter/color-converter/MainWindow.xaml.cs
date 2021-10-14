@@ -61,11 +61,17 @@ namespace WpfApp1 {
             int cursorIndex = textHexadecimal.SelectionStart;
 
             if (textH.Contains('#'))
-                textH = textH.Substring(1);
-            else
-                textHexadecimal.Text = "#" + textH;
+                textH = textH.Substring(textH.LastIndexOf('#') + 1);
 
             textH = textH.ToLower();
+
+            for (int i = 0; i <= textH.Length - 1; i++) {
+                if ((int)textH[i] < 48 || ((int)textH[i] > 57 && (int)textH[i] < 97) || (int)textH[i] > 102) {
+                    textH = textH.Remove(i, 1);
+                    i--;
+                }
+            }
+            textHexadecimal.Text = '#' + textH;
 
             if (textH.Length >= 2) {
                 int j = 0;
