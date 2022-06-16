@@ -60,13 +60,12 @@ namespace WpfApp1 {
 
             int cursorIndex = textHexadecimal.SelectionStart;
 
-            if (textH.Contains('#'))
-                textH = textH.Substring(textH.LastIndexOf('#') + 1);
-
             textH = textH.ToLower();
 
-            for (int i = 0; i <= textH.Length - 1; i++) {
-                if ((int)textH[i] < 48 || ((int)textH[i] > 57 && (int)textH[i] < 97) || (int)textH[i] > 102) {
+            for (int i = 0; i <= textH.Length - 1; i++)
+            {
+                if ((int)textH[i] < 48 || ((int)textH[i] > 57 && (int)textH[i] < 97) || (int)textH[i] > 102)
+                {
                     textH = textH.Remove(i, 1);
                     i--;
                 }
@@ -74,9 +73,21 @@ namespace WpfApp1 {
             textHexadecimal.Text = '#' + textH;
 
             if (textH.Length >= 2) {
-                int j = 0;
+                /*int j = 0;
                 for (int i = 0; j < textH.Length / 2; i += 2, j++) {
                     textD = textD + int.Parse(textH[i].ToString() + textH[i + 1].ToString(), System.Globalization.NumberStyles.HexNumber).ToString() + ",";
+                }*/
+                for (int i = 0; i < textH.Length; i++)
+                {
+                    if (i + 1 < textH.Length)
+                    {
+                        textD = textD + int.Parse(textH[i].ToString() + textH[i + 1].ToString(), System.Globalization.NumberStyles.HexNumber).ToString() + ",";
+                        i++;
+                    }
+                    else
+                    {
+                        textD = textD + int.Parse(textH[i].ToString(), System.Globalization.NumberStyles.HexNumber).ToString() + ",";
+                    }
                 }
 
                 if (textD[textD.Length - 1] == ',')
