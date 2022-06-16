@@ -16,11 +16,9 @@ namespace WpfApp1 {
             this.Topmost = (bool)checkTop.IsChecked;
         }
 
-
         private void checkTop_Checked(object sender, RoutedEventArgs e) {
             this.Topmost = (bool)checkTop.IsChecked;
         }
-
 
         private void textDecimal_TextChanged(object sender, TextChangedEventArgs e) {
             int cursorIndex = textDecimal.SelectionStart;
@@ -83,7 +81,6 @@ namespace WpfApp1 {
             textDecimal.Select(cursorIndex, 0);
         }
 
-
         private void textHexadecimal_TextChanged(object sender, TextChangedEventArgs e) {
             int cursorIndex = textHexadecimal.SelectionStart;
 
@@ -125,6 +122,16 @@ namespace WpfApp1 {
 
         private void textHexadecimal_Initialized(object sender, EventArgs e) {
             textHexadecimal.Text = "#";
+        }
+
+        private void buttonDecimal_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(textDecimal.Text);
+        }
+
+        private void buttonHexadecimal_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(textHexadecimal.Text);
         }
     }
 }
