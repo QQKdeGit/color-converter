@@ -12,7 +12,6 @@ namespace WpfApp1 {
             InitializeComponent();
         }
 
-
         private void checkTop_Unchecked(object sender, RoutedEventArgs e) {
             this.Topmost = (bool)checkTop.IsChecked;
         }
@@ -24,78 +23,102 @@ namespace WpfApp1 {
 
 
         private void textDecimal_TextChanged(object sender, TextChangedEventArgs e) {
-            String textD = textDecimal.Text.ToString();
-            String textH = "#";
-
             int cursorIndex = textDecimal.SelectionStart;
 
-            for (int i = 0; i <= textD.Length - 1; i++) {
-                if ((int)textD[i] > 57 || (int)textD[i] < 48)
-                    textD = textD.Replace(textD[i], ',');
-            }
+            string textD = textDecimal.Text;
+            string textH = "#";
 
+            // 将除数字以外的字符转换成分隔符，并且裁切可能存在的多余部分
+            for (int i = 0, count = 0; i < textD.Length; i++) {
+                if ((int)textD[i] < 48 || (int)textD[i] > 57)
+                {
+                    textD = textD.Replace(textD[i], ',');
+                    count++;
+                }
+
+                if (count > 2)
+                    textD = textD.Substring(0, i);
+            }
             textDecimal.Text = textD;
 
-            for (int i = 0; i <= textD.Count<char>(c => c == ','); i++) {
-                String subString = textD.Split(',')[i];
-                int m = 0;
+            string[] subStringList = textD.Split(',');
 
-                if (!String.IsNullOrEmpty(subString)) {
-                    int.TryParse(subString, out m);
-                    if (m <= 15)
-                        textH = textH + "0" + m.ToString("x");
-                    else
-                        textH += m.ToString("x");
+            // 长度不足3位则不转换成16进制
+            if (subStringList.Length < 3 || string.IsNullOrEmpty(subStringList[2]))
+            {
+                textDecimal.Select(cursorIndex, 0);
+                return;
+            }
+
+            // 有数值超过255则不转换成16进制
+            for (int i = 0; i < subStringList.Length; i++)
+            {
+                if (int.TryParse(subStringList[i], out int num) && num > 255)
+                {
+                    textHexadecimal.Text = "#";
+                    textDecimal.Select(cursorIndex, 0);
+                    return;
                 }
             }
 
+            // 转换成16进制
+            foreach (string sub in subStringList)
+            {
+                if (string.IsNullOrEmpty(sub))
+                {
+                    textH += "00";
+                }
+                else if (int.TryParse(sub, out int tempNum))
+                {
+                    if (tempNum <= 15)
+                    {
+                        textH += "0" + tempNum.ToString("x").ToUpper();
+                    }
+                    else if (tempNum <= 255)
+                        textH += tempNum.ToString("x").ToUpper();
+                }
+            }
             textHexadecimal.Text = textH;
+
             textDecimal.Select(cursorIndex, 0);
         }
 
 
         private void textHexadecimal_TextChanged(object sender, TextChangedEventArgs e) {
-            String textH = textHexadecimal.Text.ToString();
-            String textD = "";
-
             int cursorIndex = textHexadecimal.SelectionStart;
 
-            textH = textH.ToLower();
+            string textH = textHexadecimal.Text.ToUpper();
+            string textD = "";
 
-            for (int i = 0; i <= textH.Length - 1; i++)
+            // 16进制数格式化
+            if (string.IsNullOrEmpty(textH)) textH = "#";
+            if (!textH[0].Equals('#')) textH = '#' + textH;
+
+            // 过滤除字母外的字符
+            for (int i = 1; i < textH.Length; i++)
             {
-                if ((int)textH[i] < 48 || ((int)textH[i] > 57 && (int)textH[i] < 97) || (int)textH[i] > 102)
+                if ((int)textH[i] < 48 || ((int)textH[i] > 57 && (int)textH[i] < 65) || (int)textH[i] > 70)
                 {
                     textH = textH.Remove(i, 1);
                     i--;
                 }
             }
-            textHexadecimal.Text = '#' + textH;
+            textHexadecimal.Text = textH;
 
-            if (textH.Length >= 2) {
-                /*int j = 0;
-                for (int i = 0; j < textH.Length / 2; i += 2, j++) {
-                    textD = textD + int.Parse(textH[i].ToString() + textH[i + 1].ToString(), System.Globalization.NumberStyles.HexNumber).ToString() + ",";
-                }*/
-                for (int i = 0; i < textH.Length; i++)
-                {
-                    if (i + 1 < textH.Length)
-                    {
-                        textD = textD + int.Parse(textH[i].ToString() + textH[i + 1].ToString(), System.Globalization.NumberStyles.HexNumber).ToString() + ",";
-                        i++;
-                    }
-                    else
-                    {
-                        textD = textD + int.Parse(textH[i].ToString(), System.Globalization.NumberStyles.HexNumber).ToString() + ",";
-                    }
-                }
-
-                if (textD[textD.Length - 1] == ',')
-                    textD = textD.Substring(0, textD.Length - 1);
+            // 长度不足7位，则不转换成10进制
+            if (textH.Length != 7)
+            {
+                textHexadecimal.Select(cursorIndex, 0);
+                return;
             }
 
-            if (!String.IsNullOrEmpty(textD))
-                textDecimal.Text = textD;
+            // 转换成10进制
+            for (int i = 1; i < textH.Length; i += 2)
+            {
+                textD += int.Parse(textH[i].ToString() + textH[i + 1].ToString(), System.Globalization.NumberStyles.HexNumber).ToString();
+                if (i + 2 < textH.Length) textD += ",";
+            }
+            textDecimal.Text = textD;
 
             textHexadecimal.Select(cursorIndex, 0);
         }
