@@ -6,13 +6,20 @@
 		xmlns:local="clr-namespace:WpfApp1"
 		mc:Ignorable="d"
 		Title="Color Converter" Height="125" Width="277" MinWidth="277" MinHeight="125" MaxWidth="277" MaxHeight="126">
-    <Grid>
-        <TextBox x:Name="textDecimal" HorizontalAlignment="Left" Height="24" Margin="105,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="140" TextChanged="textDecimal_TextChanged"/>
-        <Button x:Name="buttonDecimal" Content="Decimal" HorizontalAlignment="Left" Margin="15,2,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="78" Height="24" BorderBrush="{x:Null}" Background="{x:Null}" Click="buttonDecimal_Click" />
+	<Grid>
+		<TextBox x:Name="TextDecimal" HorizontalAlignment="Left" Height="24" Margin="105,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="140" TextChanged="TextDecimal_TextChanged"/>
+		<Button x:Name="ButtonDecimal" Content="Decimal" HorizontalAlignment="Left" Margin="15,2,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="78" Height="24" BorderBrush="{x:Null}" Background="{x:Null}" Click="ButtonDecimal_Click" />
 
-        <TextBox x:Name="textHexadecimal" HorizontalAlignment="Left" Height="24" Margin="105,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="140" TextChanged="textHexadecimal_TextChanged" Initialized="textHexadecimal_Initialized"/>
-        <Button x:Name="buttonHexadecimal" Content="Hexadecimal" HorizontalAlignment="Left" Margin="15,30,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="78" Height="24" BorderBrush="{x:Null}" Background="{x:Null}" Click="buttonHexadecimal_Click"/>
+		<TextBox x:Name="TextHexadecimal" HorizontalAlignment="Left" Height="24" Margin="105,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="140" TextChanged="TextHexadecimal_TextChanged" Initialized="TextHexadecimal_Initialized"/>
+		<Button x:Name="ButtonHexadecimal" Content="Hexadecimal" HorizontalAlignment="Left" Margin="15,30,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="78" Height="24" BorderBrush="{x:Null}" Background="{x:Null}" Click="ButtonHexadecimal_Click"/>
 
-        <CheckBox x:Name="checkTop" Content="Top window" Margin="0,64,10,0" Checked="checkTop_Checked" Unchecked="checkTop_Unchecked" Height="15" Width="91" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-    </Grid>
+		<CheckBox x:Name="CheckTop" Content="Top window" Margin="0,64,10,0" Checked="CheckTop_Checked" Unchecked="CheckTop_Unchecked" Height="15" Width="91" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+
+		<Grid x:Name="ColorGrid">
+            <Button x:Name="Color1" HorizontalAlignment="Left" Height="15" Margin="17,62,0,0" VerticalAlignment="Top" Width="15" Background="#FFFFFF" Click="Color_Click"/>
+            <Button x:Name="Color2" HorizontalAlignment="Left" Height="15" Margin="37,62,0,0" VerticalAlignment="Top" Width="15" Background="#FFFFFF" Click="Color_Click"/>
+            <Button x:Name="Color3" HorizontalAlignment="Left" Height="15" Margin="57,62,0,0" VerticalAlignment="Top" Width="15" Background="#FFFFFF" Click="Color_Click"/>
+            <Button x:Name="Color4" HorizontalAlignment="Left" Height="15" Margin="77,62,0,0" VerticalAlignment="Top" Width="15" Background="#FFFFFF" Click="Color_Click"/>
+		</Grid>
+	</Grid>
 </Window>

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace WpfApp1 {
     /// <summary>
@@ -12,18 +13,18 @@ namespace WpfApp1 {
             InitializeComponent();
         }
 
-        private void checkTop_Unchecked(object sender, RoutedEventArgs e) {
-            this.Topmost = (bool)checkTop.IsChecked;
+        private void CheckTop_Unchecked(object sender, RoutedEventArgs e) {
+            this.Topmost = (bool)CheckTop.IsChecked;
         }
 
-        private void checkTop_Checked(object sender, RoutedEventArgs e) {
-            this.Topmost = (bool)checkTop.IsChecked;
+        private void CheckTop_Checked(object sender, RoutedEventArgs e) {
+            this.Topmost = (bool)CheckTop.IsChecked;
         }
 
-        private void textDecimal_TextChanged(object sender, TextChangedEventArgs e) {
-            int cursorIndex = textDecimal.SelectionStart;
+        private void TextDecimal_TextChanged(object sender, TextChangedEventArgs e) {
+            int cursorIndex = TextDecimal.SelectionStart;
 
-            string textD = textDecimal.Text;
+            string textD = TextDecimal.Text;
             string textH = "#";
 
             // 将除数字以外的字符转换成分隔符，并且裁切可能存在的多余部分
@@ -37,14 +38,14 @@ namespace WpfApp1 {
                 if (count > 2)
                     textD = textD.Substring(0, i);
             }
-            textDecimal.Text = textD;
+            TextDecimal.Text = textD;
 
             string[] subStringList = textD.Split(',');
 
             // 长度不足3位则不转换成16进制
             if (subStringList.Length < 3 || string.IsNullOrEmpty(subStringList[2]))
             {
-                textDecimal.Select(cursorIndex, 0);
+                TextDecimal.Select(cursorIndex, 0);
                 return;
             }
 
@@ -53,8 +54,8 @@ namespace WpfApp1 {
             {
                 if (int.TryParse(subStringList[i], out int num) && num > 255)
                 {
-                    textHexadecimal.Text = "#";
-                    textDecimal.Select(cursorIndex, 0);
+                    TextHexadecimal.Text = "#";
+                    TextDecimal.Select(cursorIndex, 0);
                     return;
                 }
             }
@@ -76,15 +77,16 @@ namespace WpfApp1 {
                         textH += tempNum.ToString("x").ToUpper();
                 }
             }
-            textHexadecimal.Text = textH;
+            TextHexadecimal.Text = textH;
+            AddColor(textD);
 
-            textDecimal.Select(cursorIndex, 0);
+            TextDecimal.Select(cursorIndex, 0);
         }
 
-        private void textHexadecimal_TextChanged(object sender, TextChangedEventArgs e) {
-            int cursorIndex = textHexadecimal.SelectionStart;
+        private void TextHexadecimal_TextChanged(object sender, TextChangedEventArgs e) {
+            int cursorIndex = TextHexadecimal.SelectionStart;
 
-            string textH = textHexadecimal.Text.ToUpper();
+            string textH = TextHexadecimal.Text.ToUpper();
             string textD = "";
 
             // 16进制数格式化
@@ -100,12 +102,12 @@ namespace WpfApp1 {
                     i--;
                 }
             }
-            textHexadecimal.Text = textH;
+            TextHexadecimal.Text = textH;
 
             // 长度不足7位，则不转换成10进制
             if (textH.Length != 7)
             {
-                textHexadecimal.Select(cursorIndex, 0);
+                TextHexadecimal.Select(cursorIndex, 0);
                 return;
             }
 
@@ -115,23 +117,54 @@ namespace WpfApp1 {
                 textD += int.Parse(textH[i].ToString() + textH[i + 1].ToString(), System.Globalization.NumberStyles.HexNumber).ToString();
                 if (i + 2 < textH.Length) textD += ",";
             }
-            textDecimal.Text = textD;
+            TextDecimal.Text = textD;
 
-            textHexadecimal.Select(cursorIndex, 0);
+            TextHexadecimal.Select(cursorIndex, 0);
         }
 
-        private void textHexadecimal_Initialized(object sender, EventArgs e) {
-            textHexadecimal.Text = "#";
+        private void TextHexadecimal_Initialized(object sender, EventArgs e) {
+            TextHexadecimal.Text = "#";
         }
 
-        private void buttonDecimal_Click(object sender, RoutedEventArgs e)
+        private void ButtonDecimal_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(textDecimal.Text);
+            Clipboard.SetText(TextDecimal.Text);
         }
 
-        private void buttonHexadecimal_Click(object sender, RoutedEventArgs e)
+        private void ButtonHexadecimal_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(textHexadecimal.Text);
+            Clipboard.SetText(TextHexadecimal.Text);
+        }
+
+        private int colorIndex = 0;
+        private void AddColor(string color)
+        {
+            string[] subColor = color.Split(',');
+            Button button = new Button();
+
+            switch (colorIndex)
+            {
+                case 0:
+                    button = Color1;
+                    break;
+                case 1:
+                    button = Color2;
+                    break;
+                case 2:
+                    button = Color3;
+                    break;
+                case 3:
+                    button = Color4;
+                    break;
+            }
+            button.Background = new SolidColorBrush(Color.FromRgb(Convert.ToByte(subColor[0]), Convert.ToByte(subColor[1]), Convert.ToByte(subColor[2])));
+
+            if (4 == ++colorIndex) colorIndex = 0;
+        }
+
+        private void Color_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText("#" + ((Button)sender).Background.ToString().Substring(3));
         }
     }
 }
