@@ -1,11 +1,16 @@
 # color-converter
 
-方便开发前端的小工具
+Convert colors between decimal and hexadecimal.
 
-实现RGB颜色十进制与十六进制的相互转换，并且转换的格式可以直接复制贴进代码中
+Make toning easier!!
 
-十进制中可以输入除了数字以外的任意字符来分隔RGB，能够自动转换成 `,` 半角逗号
+## Usage
 
-窗口可以置顶，可以置顶在小角落方便使用
+| <img src="README.assets/image-20220714092840617.png" align="center"/> | <img src="README.assets/image-20220714093311153.png" align="center"/>|
+| -------------------------------- | -------------------------------- |
 
-再也不用在网页上切来切去了
+- Use `,` as delimiter for decimal colors. It can convert characters expect `,` to `,`
+- You can input two `,` at most, otherwise the content after the third `,` will be deleted
+- Click `Decimal` or `Hexadecimal` to copy the corresponding color
+- The small color block in the left lower corner records the history of color conversion
+- Check `Top window` checkbox to top the window
