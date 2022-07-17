@@ -14,3 +14,7 @@ Make toning easier!!
 - Click `Decimal` or `Hexadecimal` to copy the corresponding color
 - The small color block in the left lower corner records the history of color conversion
 - Check `Top window` checkbox to top the window
+
+## Known Bug
+
+- [ ] When forcibly pasting content that does not match the format, color-converter will crash
